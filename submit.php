@@ -29,14 +29,79 @@
 			<article>
 				<h1>Data Submission</h1>
 
+				<h2>Contribute an artifact:</h2>
+
+				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+
+					Name: <input type="text" name="name"></br>
+					Message: <input type="text" name="message"></br>
+					<input type="submit" name="submit" value="Submit"></br>
+				<form>
+
+				<!--
+
 				<p>
 
-					<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-						Name: <input type="text" name="name" />
-						<input type="submit" name="namesubmit" value="Submit"><br/>
-						Message: <input type="text" name="message" />
-						<input type="submit" name="messagesubmit" value="Submit"><br/>
-					</form>
+				<table>
+				
+				<tr>
+				<th>Label</th>
+				<th>Language</th>
+				<th>Script</th>
+				<th>Origin Date</th>
+				<th>Origin Location</th>
+				<th>Material</th>
+				<th>Dimensions</th>
+				<th>Discovery Location</th>
+				<th>Discovery Date</th>
+				<th>Current Location</th>
+				<th>Submit</th>
+				</tr>
+				<tr>
+
+				<form method="post" action=php goes here>
+				<table>
+							<td>
+						<input type="text" name="label" size="4"  /><br/>
+					</td>
+					<td>
+						<input type="text" name="language" size="4" /><br/>
+					</td>
+					<td>
+						<input type="text" name="script" size="4"  /><br/>
+					</td>
+					<td>
+						<input type="text" name="origin_date" size="4" /><br/>
+					</td>
+					<td>	
+						<input type="text" name="origin_location" size="4" /><br/>
+					</td>
+					<td>
+						<input type="text" name="material" size="4" /><br/>
+					</td>
+					<td>
+						<input type="text" name="dimensions" size="4" /><br/>
+					</td>
+					<td>
+						<input type="text" name="discovery_location" size="4" /><br/>
+					</td>
+					<td>
+						<input type="text" name="discovery_date" size="4" /><br/>
+					</td>
+					<td>
+						<input type="text" name="current_location" size="4" /><br/>
+					</td>
+					<td>
+						<input type="submit" name="artifactsubmit" value="Submit">
+					</td>
+				</form>
+			</tr>
+
+					</p>
+				-->
+		
+
 
 				<?php
 
@@ -52,7 +117,7 @@
 				}
 
 				if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-					if (isset($_POST['namesubmit']))  {
+					if (isset($_POST['submit']))  {
 						$name = $mysqli->real_escape_string($_REQUEST["name"]);
 						$message = $mysqli->real_escape_string($_REQUEST["message"]);
 						$sql = "INSERT INTO testtwo (`name`, `message`) VALUES ('$name', '$message')";
