@@ -27,9 +27,13 @@
 			</nav>
 
 			<article>
-				<h1>Data Submission</h1>
+				<h2>Data Submission</h2>
 
-				<h2>Contribute an artifact:</h2>
+				<h1>How to submit data:</h1>
+
+				<p>Fill in the fields for your chosen submission type (artifact, token, source, etc). NOTE: if for example you wish to submit both an artifact and a token, you must make each submission individually. Once you click the submit button only the fields that correspond to that button will be submitted and any other data will not be saved. </p>
+
+				<h1>Contribute an artifact:</h1>
 
 				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
@@ -37,7 +41,13 @@
 					Name: <input type="text" name="name"></br>
 					Message: <input type="text" name="message"></br>
 					<input type="submit" name="submit" value="Submit"></br>
-				<form>
+				
+				<h1>Test:</h1>
+
+					Test: <input type="text" name="test"></br>
+					<input type="submit" name="testsubmit" value="Submit"></br>
+
+				</form>
 
 				<!--
 
@@ -127,9 +137,20 @@
 						} else {
 							echo "ERROR: Could not execute $sql. " . $mysqli->error;
 						}
+					} elseif (isset($_POST['testsubmit'])) {
+						$test = $mysqli->real_escape_string($_REQUEST["test"]);
+						$sql = "INSERT INTO test (`name`) VALUES ('$test')";
+						
+						if ($mysqli->query($sql) === true){
+							echo "Record inserted successfully. Thank you for your contribution, please contribute again!";
+						} else {
+							echo "ERROR: Could not execute $sql. " . $mysqli->error;
+						}
+					
 					} else {
 						//
 					}
+
 				}
 
 				$mysqli->close();
