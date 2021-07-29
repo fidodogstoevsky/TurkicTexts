@@ -35,44 +35,26 @@
 
 				<h1>Contribute an artifact:</h1>
 
-				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-
-
-					Name: <input type="text" name="name"></br>
-					Message: <input type="text" name="message"></br>
-					<input type="submit" name="submit" value="Submit"></br>
-				
-				<h1>Test:</h1>
-
-					Test: <input type="text" name="test"></br>
-					<input type="submit" name="testsubmit" value="Submit"></br>
-
-				</form>
-
-				<!--
-
-				<p>
-
 				<table>
 				
 				<tr>
-				<th>Label</th>
-				<th>Language</th>
-				<th>Script</th>
-				<th>Origin Date</th>
-				<th>Origin Location</th>
-				<th>Material</th>
-				<th>Dimensions</th>
-				<th>Discovery Location</th>
-				<th>Discovery Date</th>
-				<th>Current Location</th>
-				<th>Submit</th>
+					<th>Label</th>
+					<th>Language</th>
+					<th>Script</th>
+					<th>Origin Date</th>
+					<th>Origin Location</th>
+					<th>Material</th>
+					<th>Dimensions</th>
+					<th>Discovery Location</th>
+					<th>Discovery Date</th>
+					<th>Current Location</th>
+					<th>Submit</th>
 				</tr>
 				<tr>
 
-				<form method="post" action=php goes here>
+				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 				<table>
-							<td>
+					<td>
 						<input type="text" name="label" size="4"  /><br/>
 					</td>
 					<td>
@@ -108,9 +90,8 @@
 				</form>
 			</tr>
 
-					</p>
-				-->
-		
+		</article>
+		</section>
 
 
 				<?php
@@ -127,10 +108,20 @@
 				}
 
 				if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-					if (isset($_POST['submit']))  {
-						$name = $mysqli->real_escape_string($_REQUEST["name"]);
-						$message = $mysqli->real_escape_string($_REQUEST["message"]);
-						$sql = "INSERT INTO testtwo (`name`, `message`) VALUES ('$name', '$message')";
+					if (isset($_POST['artifactsubmit']))  {
+
+						$label = $mysqli->real_escape_string($_REQUEST["label"]);
+						$language = $mysqli->real_escape_string($_REQUEST["language"]);
+						$script = $mysqli->real_escape_string($_REQUEST["script"]);
+						$origin_date = $mysqli->real_escape_string($_REQUEST["origin_date"]);
+						$origin_location = $mysqli->real_escape_string($_REQUEST["origin_location"]);
+						$material = $mysqli->real_escape_string($_REQUEST["material"]);
+						$dimensions = $mysqli->real_escape_string($_REQUEST["dimensions"]);
+						$discovery_location = $mysqli->real_escape_string($_REQUEST["discovery_location"]);
+						$discovery_date = $mysqli->real_escape_string($_REQUEST["discovery_date"]);
+						$current_location = $mysqli->real_escape_string($_REQUEST["current_location"]);
+						
+						$sql = "INSERT INTO artifacts (`label`, `language`, `script`, `origin_date`, `origin_location`, `material`, `dimensions`, `discovery_location`, `discovery_date`, `current_location`) VALUES ('$label', '$language', '$script', '$origin_date', '$origin_location', '$material', '$dimensions', '$discovery_location', '$discovery_date', '$current_location')";
 
 						if ($mysqli->query($sql) === true){
 							echo "Record inserted successfully. Thank you for your contribution, please contribute again!";
@@ -157,9 +148,6 @@
 				 
 				?>
 
-			</article>
-
-		</section>
 
 		<footer>
 			<p>Thank you!</p>
