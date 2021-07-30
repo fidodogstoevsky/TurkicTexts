@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 		<link rel="stylesheet" href="styles.css">
-
+		
 		<style>
 			body {background-color: #800000;}
 		</style>
@@ -53,45 +53,95 @@
 				<tr>
 
 				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-				<table>
+				<tr>
 					<td>
-						<input type="text" name="label" size="4"  /><br/>
+						<input type="text" name="label" /><br/>
 					</td>
 					<td>
-						<input type="text" name="language" size="4" /><br/>
+						<input type="text" name="language" /><br/>
 					</td>
 					<td>
-						<input type="text" name="script" size="4"  /><br/>
+						<input type="text" name="script" /><br/>
 					</td>
 					<td>
-						<input type="text" name="origin_date" size="4" /><br/>
+						<input type="text" name="origin_date" /><br/>
 					</td>
 					<td>	
-						<input type="text" name="origin_location" size="4" /><br/>
+						<input type="text" name="origin_location" /><br/>
 					</td>
 					<td>
-						<input type="text" name="material" size="4" /><br/>
+						<input type="text" name="material" /><br/>
 					</td>
 					<td>
-						<input type="text" name="dimensions" size="4" /><br/>
+						<input type="text" name="dimensions" /><br/>
 					</td>
 					<td>
-						<input type="text" name="discovery_location" size="4" /><br/>
+						<input type="text" name="discovery_location" /><br/>
 					</td>
 					<td>
-						<input type="text" name="discovery_date" size="4" /><br/>
+						<input type="text" name="discovery_date" /><br/>
 					</td>
 					<td>
-						<input type="text" name="current_location" size="4" /><br/>
+						<input type="text" name="current_location" /><br/>
 					</td>
 					<td>
 						<input type="submit" name="artifactsubmit" value="Submit">
 					</td>
 				</form>
-			</tr>
+				</tr>
 
-		</article>
-		</section>
+				</table>
+
+				<h1>Contribute a token:</h1>
+
+				<table>
+				
+				<tr>
+					<th>Token ID</th>
+					<th>Artifact ID</th>
+					<th>Source ID</th>
+					<th>Level</th>
+					<th>Analysis</th>
+					<th>Sequence</th>
+					<th>Submit</th>
+				</tr>
+
+				
+				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+				<tr>
+					<td><input type="text" name="token_id" /><br/></td>
+					<td><input type="text" name="artifact_id" /><br/></td>
+					<td><input type="text" name="source_id" /><br/></td>
+					<td><input type="text" name="level" /><br/></td>
+					<td><input type="text" name="analysis" /><br/></td>
+					<td><input type="text" name="sequence" /><br/></td>
+					<td><input type="submit" name="tokensubmit" value="Submit">
+				</tr>
+				</form>
+				</table>
+
+				<h1>Contribute a source:</h1>
+
+				<table>
+				<tr>
+					<th>Author</th>
+					<th>Title</th>
+					<th>Year Published</th>
+					<th>Publisher</th>
+					<th>Submit</th>
+				</tr>
+
+				<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+				<tr>
+					<td><input type="text" name="author" /><br/></td>
+					<td><input type="text" name="title" /><br/></td>
+					<td><input type="text" name="year_published" /><br/></td>
+					<td><input type="text" name="publisher" /><br/></td>
+					<td><input type="submit" name="sourcesubmit" value="Submit">
+				</tr>
+				</form>
+				</table>
+
 
 
 				<?php
@@ -123,23 +173,32 @@
 						
 						$sql = "INSERT INTO artifacts (`label`, `language`, `script`, `origin_date`, `origin_location`, `material`, `dimensions`, `discovery_location`, `discovery_date`, `current_location`) VALUES ('$label', '$language', '$script', '$origin_date', '$origin_location', '$material', '$dimensions', '$discovery_location', '$discovery_date', '$current_location')";
 
-						if ($mysqli->query($sql) === true){
-							echo "Record inserted successfully. Thank you for your contribution, please contribute again!";
-						} else {
-							echo "ERROR: Could not execute $sql. " . $mysqli->error;
-						}
-					} elseif (isset($_POST['testsubmit'])) {
-						$test = $mysqli->real_escape_string($_REQUEST["test"]);
-						$sql = "INSERT INTO test (`name`) VALUES ('$test')";
-						
-						if ($mysqli->query($sql) === true){
-							echo "Record inserted successfully. Thank you for your contribution, please contribute again!";
-						} else {
-							echo "ERROR: Could not execute $sql. " . $mysqli->error;
-						}
-					
+				} elseif (isset($_POST['tokensubmit'])) {
+						$token_id = $mysqli->real_escape_string($_REQUEST["token_id"]);
+						$artifact_id = $mysqli->real_escape_string($_REQUEST["artifact_id"]);
+						$source_id = $mysqli->real_escape_string($_REQUEST["source_id"]);
+						$level = $mysqli->real_escape_string($_REQUEST["level"]);
+						$analysis = $mysqli->real_escape_string($_REQUEST["analysis"]);
+						$sequence = $mysqli->real_escape_string($_REQUEST["sequence"]);
+
+						$sql = "INSERT INTO tokens (`token_id`, `artifact_id`, `source_id`, `level`, `analysis`, `seq`) VALUES ('$token_id', '$artifact_id', '$source_id', '$level', '$analysis', '$sequence')";
+				
+					} elseif (isset($_POST['sourcesubmit'])) {
+						$author = $mysqli->real_escape_string($_REQUEST["author"]);
+						$title = $mysqli->real_escape_string($_REQUEST["title"]);
+						$year_published = $mysqli->real_escape_string($_REQUEST["year_published"]);
+						$publisher = $mysqli->real_escape_string($_REQUEST["publisher"]);
+
+						$sql = "INSERT INTO sources (`author`, `title`, `year_published`, `publisher`) VALUES ('$author', '$title', '$year_published', '$publisher')";
+
 					} else {
 						//
+					}
+					
+					if ($mysqli->query($sql) === true) {
+						echo "Record inserted successfully. Thank you for your contribution, please contribute again!";
+					} else {
+						echo "ERROR: Could not execute $sql. " . $mysqli->error;
 					}
 
 				}
@@ -147,6 +206,11 @@
 				$mysqli->close();
 				 
 				?>
+
+
+		</article>
+
+		</section>
 
 
 		<footer>
